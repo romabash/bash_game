@@ -1,6 +1,7 @@
 #!/bin/bash
 
-x="\e[0;101m======\e[0m"
+#Red Background with Red Text to create a block
+x="\033[0;101m\033[1;91m======\e[0m"
 #echo -e $x
 
 cols=$(tput cols)
@@ -13,7 +14,7 @@ for ((i=1; i<=5; i++)); do
   tput clear
 
   tput cup $((10+$i)) $middle_col
-  echo -e $x
+  echo -e ${x}
   sleep 0.5
 done
 
