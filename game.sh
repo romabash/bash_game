@@ -1,55 +1,53 @@
 #!/bin/bash
 
-#Red Background with Red Text to create a block
-x="\033[0;101m\033[1;91m======\e[0m"
-#echo -e $x
-
-cols=$(tput cols)
-rows=$(tput lines)
-
-middle_row=$((rows/2))
-middle_col=$(( (cols/2)-(${#x}/2) ))
-
-
-#Player Green Bg with Green text
-y="\033[0;102m\033[1;92m======\e[0m"
-y_pos=$middle_col
+#Set up the controls (left and right arrows)
 left='\[D'
 right='\[C'
 SUCCESS=0
+#----------------------------------------------
 
-for ((x_pos=1; x_pos<=10; x_pos++)); do
+#Red Background with Red Text to create a block
+block="\033[0;101m\033[1;91m======\e[0m"
+#Green Background with Green Text to create player
+player="\033[0;102m\033[1;92m======\e[0m"
+
+cols=$(tput cols) 	#number of columns
+rows=$(tput lines) 	#number of rows
+
+middle_row=$((rows/2))	#half of height
+middle_col=$(( (cols/2)-(${#block}/2) ))	
+
+player_pos=$middle_col	#Position player in middle of screen
+
+#---------------------------------------------
+
+while true; do
   tput clear
 
-  tput cup $x_pos $middle_col
-  echo -e ${x}
- 
+  tput cup $block_pos $middle_col
+  echo -e ${block}
 
-  tput cup $rows $y_pos
-  echo -e ${y}
-  
-  read -rsn3 input
+  tput cup $rows $player_pos
+  echo -e ${player}
+
+
+  read -t 0.1 -rsn3 input
   echo -n "$input" | grep "$left"
   if [ "$?" -eq $SUCCESS ]; then
-    let y_pos-=10
+    let player_pos-=10
   fi
   echo -n "$input" | grep "$right"
   if [ "$?" -eq $SUCCESS ]; then
-    let y_pos+=10
+    let player_pos+=10
   fi
 
-#if ["$input" = "a"]; then
-#  $((++y_pos))
-#  echo $input
-#elif ["$input" = "s"]; then
-#  $((--y_pos))  
-#fi
+  # sleep 0.5
+  let block_pos+=1
 
-  sleep 0.5
+  if [[ $block_pos == $rows && $middle_col == $player_pos ]]; then
+    break
+  fi
 done
-
 
 tput sgr0
 tput cup $(tput lines) 0
-
-
