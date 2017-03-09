@@ -18,16 +18,17 @@ inArray(){
 
 #-----------------------------------------------------------------------
 
-number=()
+number=() 
+level=4 #How many numbers to play 
 
-while (( ${#number[@]} < 4 )); do
+while (( ${#number[@]} < $level )); do
   num=$(( $RANDOM % 10 ))
 
-  inArray $num ${number[@]}
-  contains=$?
+  inArray $num ${number[@]} #Check if new Random num is already in array
+  contains=$? #Assign return value of inArray(): 1 or False, not in array
   
   if (( $contains == 1 )); then
-    number+=($num)  
+    number+=($num) #If not in array, add to number
   fi
 done
 
@@ -35,4 +36,39 @@ echo ${number[*]}
 
 
 #-----------------------------------------------------------------------
+read -p "Enter a unique $level digit number " input 
+guess=($(echo "$input" | grep -o .)) #Outer () to make array
+
+echo ${guess[@]}
+
+all_matches=0 #Find all matches first
+for i in ${guess[@]}; do 
+  inArray $i ${number[@]}
+  match=$?
+  
+  if (( $match == 0)); then #If number is in both arrays
+    let all_matches+=1
+  fi
+done
+
+bulls=0 #Find number of bulls by looking at numbers in the same index 
+for x in ${!guess[@]}; do
+  if (( ${guess[$x]} == ${number[$x]} )); then
+    let bulls+=1
+  fi
+done 
+
+cows=$(( all_matches - bulls )) #Find cows by subtracting
+
+echo "Total matches is $all_matches"
+echo "Bulls: $bulls"
+echo "Cows $cows"
+
+
+
+
+
+
+
+
 
