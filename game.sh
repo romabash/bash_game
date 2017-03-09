@@ -1,6 +1,9 @@
 #!/bin/bash
 
-#Function to check in element is in array
+#-----------------------------------------------------------------------
+
+#Function to check if element is in array
+#Takes 2 arguments: the element and expanded array
 inArray(){
   local e #local varibale e 
   local arr="${@:2}" #Combines 2nd arg (expanded array) into one varibale  
@@ -13,9 +16,9 @@ inArray(){
   return 1 #Return 1 (False) otherwise
 }
 
-number=()
+#-----------------------------------------------------------------------
 
-len=${#number[@]}
+number=()
 
 while (( ${#number[@]} < 4 )); do
   num=$(( $RANDOM % 10 ))
@@ -29,4 +32,7 @@ while (( ${#number[@]} < 4 )); do
 done
 
 echo ${number[*]}
+
+
+#-----------------------------------------------------------------------
 
