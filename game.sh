@@ -1,38 +1,12 @@
 #!/bin/bash
 
-#-----------------------------------------------------------------------
+#Include randomNumber function to generate unique random number of specified length
+source ./randomNumber.sh
 
-#Function to check if element is in array
-#Takes 2 arguments: the element and expanded array
-inArray(){
-  local e #local varibale e 
-  local arr="${@:2}" #Combines 2nd arg (expanded array) into one varibale  
-     
-  for e in $arr; do 
-    if [[ "$e" == "$1" ]]; then 
-      return 0 #Return 0 (True) 
-    fi 
-  done
-  return 1 #Return 1 (False) otherwise
-}
-
-#-----------------------------------------------------------------------
 #Generating Random number
 
-number=() 
-level=4 #How many numbers to play 
-
-while (( ${#number[@]} < $level )); do
-  num=$(( $RANDOM % 10 ))
-
-  inArray $num ${number[@]} #Check if new Random num is already in array
-  contains=$? #Assign return value of inArray(): 1 or False, not in array
-  
-  if (( $contains == 1 )); then
-    number+=($num) #If not in array, add to number
-  fi
-done
-
+level=4
+number=($(randomNumber $level)) 
 echo ${number[*]}
 
 #-----------------------------------------------------------------------
