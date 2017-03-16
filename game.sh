@@ -11,27 +11,6 @@ echo ${number[*]}
 
 #-----------------------------------------------------------------------
 
-#Input Validation
-#
-#read -p "Enter a unique $level digit number " input 
-#guess=($(echo "$input" | grep -o .)) #Outer () to make array
-#  
-#if (( ${#guess[@]} != $level )); then
-#  read -p "Enter a unique $level digit number " input 
-#  guess=($(echo "$input" | grep -o .)) #Outer () to make array
-#fi
-#  
-#check=($(echo "${guess[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
-#  
-#if (( ${#guess[@]} != ${#check[@]} )); then
-#  read -p "Enter a UNIQUE $level digit number " input 
-#  guess=($(echo "$input" | grep -o .)) #Outer () to make array
-#fi
-#  
-#echo ${guess[@]}
- 
-#-----------------------------------------------------------------------
-
 #Checking and comparing
 bulls=0
 until (($bulls >= $level)); do 
@@ -68,7 +47,6 @@ until (($bulls >= $level)); do
       
     cows=$(( all_matches - bulls )) #Find cows by subtracting
     
-    echo "Total matches is $all_matches"
     echo "Bulls: $bulls"
     echo "Cows $cows"
   fi
