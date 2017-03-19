@@ -9,10 +9,13 @@ level=4
 number=($(randomNumber $level)) #set to array 
 echo ${number[*]}
 
+name="Mina"
+
 #-----------------------------------------------------------------------
 
 #Checking and comparing
 bulls=0
+count=0
 until (($bulls >= $level)); do 
    
   read -p "Enter your guess " input
@@ -49,15 +52,31 @@ until (($bulls >= $level)); do
     
     echo "Bulls: $bulls"
     echo "Cows $cows"
+    
+    ((count++)) 
   fi
   
 done #Ends untill loop
 
+echo "YOU WON!!!"
 
+if (($count == 1)); then 
+  echo "It took you 1 try"
+else
+  echo "It took you $count tries"
+fi
 
+#-----------------------------------------------------------------------
+#Saving High score:
 
+if grep -i -q $name score; then
+  score=$(grep -i $name score | awk '{print $2}')
 
-
-
-
+  if ((count < score)); then
+    $(sed -i "/$name/d" score)
+    $(echo "$name $count" >> score)
+  fi
+else
+  $(echo "$name $count" >> score)
+fi
 
