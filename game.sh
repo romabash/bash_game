@@ -9,7 +9,7 @@ level=4
 number=($(randomNumber $level)) #set to array 
 echo ${number[*]}
 
-name="Mina"
+name="Player"
 
 #-----------------------------------------------------------------------
 
