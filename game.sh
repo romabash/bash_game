@@ -50,20 +50,17 @@ until (($bulls >= $level)); do
       
     cows=$(( all_matches - bulls )) #Find cows by subtracting
     
-    echo "Bulls: $bulls"
-    echo "Cows $cows"
+    echo "$input:	$bulls Bulls and $cows Cows"
     
     ((count++)) 
   fi
   
-done #Ends untill loop
-
-echo "YOU WON!!!"
+done #Ends untill loop - Game Won
 
 if (($count == 1)); then 
-  echo "It took you 1 try"
+  echo "YOU WON!!!  It took you 1 try"
 else
-  echo "It took you $count tries"
+  echo "YOUWON!!!  It took you $count tries"
 fi
 
 #-----------------------------------------------------------------------
