@@ -42,8 +42,10 @@ until (($bulls >= $level)); do
   bulls=0
   cows=0
 
-  if [[ $input == "quit" || $input == "q" ]]; then
+  if [[ $input == "quit" || $input == "Quit" || $input == "q" ]]; then
     exit
+  elif [[ $input == "answer" || $input == "Answer" ]]; then
+    break
   fi
   
   if (( ${#guess[@]} != $level )); then
@@ -92,11 +94,14 @@ echo -e "$message${Reset}" #Echo the combined arguments
 echo -e "\n"
 cat playlog
 
-
-if (($count == 1)); then 
-  echo "YOU WON!!!  It took you 1 try"
+if (($bulls == 4)); then
+  if (($count == 1)); then 
+    echo "YOU WON!!!  It took you 1 try"
+  else
+    echo "YOU WON!!!  It took you $count tries"
+  fi
 else
-  echo "YOU WON!!!  It took you $count tries"
+  echo -e "${BRed}The Answer is: ${number[@]}${Reset}"
 fi
 
 #-----------------------------------------------------------------------
