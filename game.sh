@@ -41,11 +41,15 @@ until (($bulls >= $level)); do
 
   bulls=0
   cows=0
+
+  if [[ $input == "quit" || $input == "q" ]]; then
+    exit
+  fi
   
   if (( ${#guess[@]} != $level )); then
-    echo "Make sure to use $level numbers" 
+    echo -e "${BRed}Make sure to use $level numbers${Reset}" >> playlog
   elif (( ${#guess[@]} != ${#check[@]} )); then
-    echo "Make sure to not duplicate numbers" 
+    echo -e "${BRed}Make sure to not duplicate numbers${Reset}" >> playlog
   else
     
     all_matches=0 #Find all matches first
