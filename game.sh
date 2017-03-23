@@ -44,7 +44,7 @@ until (($bulls >= $level)); do
 
   if [[ $input == "quit" || $input == "Quit" || $input == "q" ]]; then
     exit
-  elif [[ $input == "answer" || $input == "Answer" ]]; then
+  elif [[ $input == "answer" || $input == "Answer" || $input == "a"]]; then
     break
   fi
   
