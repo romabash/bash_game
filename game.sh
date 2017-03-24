@@ -3,6 +3,9 @@
 #Include randomNumber function to generate unique random number of specified length
 source ./randomNumber.sh
 
+#Kepp track of time
+start_time=$(date +%s)
+
 #Clear playlog
 $(: > playlog)
 
@@ -31,8 +34,8 @@ until (($bulls >= $level)); do
   tput cup 4 10 #put "cursor" at given location
   echo -e "$message${Reset}" #Echo the combined arguments 
   echo -e "\n"
-  #echo ${number[*]}
-  cat playlog
+  echo ${number[*]}
+  cat -n playlog #Can also use: nl  playlog
 
   read -p "Enter your guess " input
   
@@ -44,14 +47,14 @@ until (($bulls >= $level)); do
 
   if [[ $input == "quit" || $input == "Quit" || $input == "q" ]]; then
     exit
-  elif [[ $input == "answer" || $input == "Answer" || $input == "a"]]; then
+  elif [[ $input == "answer" || $input == "Answer" || $input == "a" ]]; then
     break
   fi
   
   if (( ${#guess[@]} != $level )); then
-    echo -e "${BRed}Make sure to use $level numbers${Reset}" >> playlog
+    echo -e "$input:\t${BRed}Make sure to use $level numbers${Reset}" >> playlog
   elif (( ${#guess[@]} != ${#check[@]} )); then
-    echo -e "${BRed}Make sure to not duplicate numbers${Reset}" >> playlog
+    echo -e "$input:\t${BRed}Make sure to not duplicate numbers${Reset}" >> playlog
   else
     
     all_matches=0 #Find all matches first
@@ -87,18 +90,22 @@ until (($bulls >= $level)); do
   
 done #Ends untill loop - Game Won
 
+#Keep track of end time
+end_time=$(date +%s)
+total_time=$(( end_time - start_time))
+
 #Final display
 tput clear
 tput cup 4 10 #put "cursor" at given location
 echo -e "$message${Reset}" #Echo the combined arguments 
 echo -e "\n"
-cat playlog
+cat -n playlog
 
 if (($bulls == 4)); then
   if (($count == 1)); then 
-    echo "YOU WON!!!  It took you 1 try"
+    echo "YOU WON!!!  It took you 1 try and $total_time seconds"
   else
-    echo "YOU WON!!!  It took you $count tries"
+    echo "YOU WON!!!  It took you $count tries and $total_time seconds"
   fi
 else
   echo -e "${BRed}The Answer is: ${number[@]}${Reset}"
@@ -108,13 +115,15 @@ fi
 #Saving High score:
 
 if grep -i -q $name score; then #if Name with High score exists
-  score=$(grep -i $name score | awk '{print $2}')
+  best_time=$(grep -i $name score | awk '{print $2}')
 
-  if ((count < score)); then #check if current count is less than previous score
-    $(sed -i "/$name/d" score)
-    $(echo "$name $count" >> score) #delete old score and append new high score
+  if (($total_time < $best_time)); then #check if current time is less than previous best time
+    sed -i "/$name/d" score
+    echo "$name $total_time" >> score #delete old score and append new high score
   fi
 else
-  $(echo "$name $count" >> score)
+  echo "$name $total_time" >> score
 fi
 
+#Clear playlog
+$(: > playlog)

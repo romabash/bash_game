@@ -12,12 +12,12 @@ tput clear #clear terminal
 tput cup 4 10 #put "cursor" at given location
 echo -e "$message" #Title
 
-function menu(){
-  echo "1)  Play Game"
-  echo "2)  Instructions"
-  echo "3)  Quit"
-}
-menu
+#function menu(){
+#  echo "1)  Play Game"
+#  echo "2)  Instructions"
+#  echo "3)  Quit"
+#}
+#menu
 
 #read -p "Select option " option
 #
@@ -33,7 +33,7 @@ menu
 #  fi
 #done
 
-Using the Select 
+#Using the Select 
 menu="Play Quit"
 PS3='Select option: '
  
