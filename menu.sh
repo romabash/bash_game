@@ -6,44 +6,36 @@ BYellow='\033[1;33m'      # Yellow
 Reset='\033[0m'
 
 message="${BGreen}Bulls${Reset} and ${BYellow}Cows${Reset}"
- 
-tput clear #clear terminal
- 
-tput cup 4 10 #put "cursor" at given location
-echo -e "$message" #Title
 
-#function menu(){
-#  echo "1)  Play Game"
-#  echo "2)  Instructions"
-#  echo "3)  Quit"
-#}
-#menu
+#Function to clear screen and display at the right row and column
+display(){ 
+  tput clear #clear terminal
+  tput cup 4 10 #put "cursor" at given location
+  echo -e "$message" #Title
+}
 
-#read -p "Select option " option
-#
-#until (( $option == 3 )); do
-#  if (( $option == 1 )); then
-#    bash game.sh
-#  elif (( $option == 2 )); then
-#    cat instructions
-#  elif (( $option == 3)); then
-#    break
-#  else
-#    read -p "Select option " option 
-#  fi
-#done
+display
 
 #Using the Select 
-menu="Play Quit"
+menu="Play Scores Quit"
 PS3='Select option: '
  
-select choice in $menu; do
+select choice in ${menu}; do
   case $choice in
     "Quit")
       break
       ;;
     "Play")
       bash game.sh
+      echo -e "\n"
+      read -n 1 -s -p "Press any key to continue"
+      display
+      ;;
+    "Scores")
+      cat score
+      echo -e "\n"
+      read -n 1 -s -p "Press any key to continue"
+      display
       ;;
     esac
 done
