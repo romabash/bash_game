@@ -28,13 +28,14 @@ select choice in ${menu}; do
     "Play")
       bash game.sh
       echo -e "\n"
-      read -n 1 -s -p "Press any key to continue"
+      read -n 1 -s -p "Press Enter to continue"
       display
       ;;
     "Scores")
-      cat score
+      display
+      sort -k2 -n score | awk 'BEGIN {printf "High Scores:"; print""; print ""} {print $1 " has completed the game in " $2 " seconds"}' 
       echo -e "\n"
-      read -n 1 -s -p "Press any key to continue"
+      read -n 1 -s -p "Press Enter to continue"
       display
       ;;
     esac
