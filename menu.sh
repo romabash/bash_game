@@ -17,7 +17,7 @@ display(){
 display
 
 #Using the Select 
-menu="Play Scores Quit"
+menu="Play Instructions Scores Quit"
 PS3='Select option: '
  
 select choice in ${menu}; do
@@ -34,6 +34,13 @@ select choice in ${menu}; do
     "Scores")
       display
       sort -k2 -n score | awk 'BEGIN {printf "High Scores:"; print""; print ""} {print $1 " has completed the game in " $2 " seconds"}' 
+      echo -e "\n"
+      read -n 1 -s -p "Press Enter to continue"
+      display
+      ;;
+    "Instructions")
+      display
+      cat instructions
       echo -e "\n"
       read -n 1 -s -p "Press Enter to continue"
       display
