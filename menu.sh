@@ -30,33 +30,33 @@ select choice in $menu; do
       display
       sort -k2 -n score | awk -f lib/awk_display.awk  
       echo -e "\n"
-      read -n 1 -s -p "Press Enter to continue"
+      read -p "Press Enter to continue"
       display
       ;;
     "Instructions")
       display
       cat instructions
       echo -e "\n"
-      read -n 1 -s -p "Press Enter to continue"
+      read -p "Press Enter to continue"
       display
       ;;
     "Play")
       select option in ${game_menu}; do
         display
         case $option in
-          "Sign")
+          "Login")
             echo -e "\n"
             read -p "Enter your name: " name
             bash game.sh $name
             echo -e "\n"
-            read -n 1 -s -p "Press Enter to continue"
+            read -p "Press Enter to continue"
             display
             break
             ;;
           "Play")
             bash game.sh $name
             echo -e "\n"
-            read -n 1 -s -p "Press Enter to continue"
+            read -p "Press Enter to continue"
             display
             break
             ;;

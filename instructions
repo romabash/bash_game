@@ -1,4 +1,14 @@
+
 Instructions: 
 
-During the game, type "quit" or "q" to quit the game and to go back to Main Menu
-Type "answer" or "a" to quit the game and see the answer
+The goal of the game is to guess the unique 4 digit number.
+
+Each guess has to be 4 digits with no repeated numbers
+
+The maching digits in the right position are "Bulls"
+The matching digits in different positions are "Cows"
+
+Log in with username to save High Score based on fastest time
+
+During the game, type "answer" or "a" to quit the current game and see the answer
+Type "quit" or "q" to quit the game and to go back to Main Menu
