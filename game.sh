@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Include randomNumber function to generate unique random number of specified length
-source ./randomNumber.sh
+source ./lib/randomNumber.sh
 
 #Kepp track of time
 start_time=$(date +%s)

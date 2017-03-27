@@ -28,7 +28,7 @@ select choice in $menu; do
       ;;
     "Scores")
       display
-      sort -k2 -n score | awk -f awk_display.awk  
+      sort -k2 -n score | awk -f lib/awk_display.awk  
       echo -e "\n"
       read -n 1 -s -p "Press Enter to continue"
       display

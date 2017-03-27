@@ -3,7 +3,7 @@
 #Generates unique random number of specified length
 
 #Include inArray function to check if number is in array
-source ./inArray.sh
+source ./lib/inArray.sh
 
 randomNumber(){
   local number=() 
