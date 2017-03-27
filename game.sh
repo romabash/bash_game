@@ -102,9 +102,9 @@ echo -e "\n"
 
 if (($bulls == 4)); then
   if (($count == 1)); then 
-    echo "YOU WON!!!  It took you 1 try and $total_time seconds"
+    echo -e "${BGreen}YOU WON!!!  It took you 1 try and $total_time seconds${Reset}"
   else
-    echo "YOU WON!!!  It took you $count tries and $total_time seconds"
+    echo -e "${BGreen}YOU WON!!!  It took you $count tries and $total_time seconds${Reset}"
   fi
 else
   echo -e "${BRed}The Answer is: ${number[@]}${Reset}"
@@ -113,7 +113,7 @@ fi
 #-----------------------------------------------------------------------
 
 #Saving High score:
-if [[ $# > 0 ]]; then
+if [[ $# > 0 && $bulls == 4 ]]; then
   name=$1
   if grep -i -q $name score; then #if Name with High score exists
     best_time=$(grep -i $name score | awk '{print $2}')
