@@ -21,8 +21,6 @@ message="${BGreen}Bulls${Reset} and ${BYellow}Cows"
 level=4
 number=($(randomNumber $level)) #set to array 
 
-name="Player2"
-
 #-----------------------------------------------------------------------
 
 #Checking and comparing
@@ -100,6 +98,7 @@ tput cup 4 10 #put "cursor" at given location
 echo -e "$message${Reset}" #Echo the combined arguments 
 echo -e "\n"
 cat -n playlog
+echo -e "\n"
 
 if (($bulls == 4)); then
   if (($count == 1)); then 
@@ -112,17 +111,20 @@ else
 fi
 
 #-----------------------------------------------------------------------
+
 #Saving High score:
-
-if grep -i -q $name score; then #if Name with High score exists
-  best_time=$(grep -i $name score | awk '{print $2}')
-
-  if (($total_time < $best_time)); then #check if current time is less than previous best time
-    sed -i "/$name/d" score
-    echo "$name $total_time" >> score #delete old score and append new high score
+if [[ $# > 0 ]]; then
+  name=$1
+  if grep -i -q $name score; then #if Name with High score exists
+    best_time=$(grep -i $name score | awk '{print $2}')
+  
+    if (($total_time < $best_time)); then #check if current time is less than previous best time
+      sed -i "/$name/d" score
+      echo "$name $total_time" >> score #delete old score and append new high score
+    fi
+  else
+    echo "$name $total_time" >> score
   fi
-else
-  echo "$name $total_time" >> score
 fi
 
 #Clear playlog

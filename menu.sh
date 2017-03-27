@@ -18,22 +18,17 @@ display
 
 #Using the Select 
 menu="Play Instructions Scores Quit"
+game_menu="Sign Play"
 PS3='Select option: '
  
-select choice in ${menu}; do
+select choice in $menu; do
   case $choice in
     "Quit")
       break
       ;;
-    "Play")
-      bash game.sh
-      echo -e "\n"
-      read -n 1 -s -p "Press Enter to continue"
-      display
-      ;;
     "Scores")
       display
-      sort -k2 -n score | awk 'BEGIN {printf "High Scores:"; print""; print ""} {print $1 " has completed the game in " $2 " seconds"}' 
+      sort -k2 -n score | awk -f awk_display.awk  
       echo -e "\n"
       read -n 1 -s -p "Press Enter to continue"
       display
@@ -45,7 +40,29 @@ select choice in ${menu}; do
       read -n 1 -s -p "Press Enter to continue"
       display
       ;;
-    esac
+    "Play")
+      select option in ${game_menu}; do
+        display
+        case $option in
+          "Sign")
+            echo -e "\n"
+            read -p "Enter your name: " name
+            bash game.sh $name
+            echo -e "\n"
+            read -n 1 -s -p "Press Enter to continue"
+            display
+            break
+            ;;
+          "Play")
+            bash game.sh $name
+            echo -e "\n"
+            read -n 1 -s -p "Press Enter to continue"
+            display
+            break
+            ;;
+        esac
+      done
+  esac
 done
 
 tput sgr0 #Turns bold and other changes off
