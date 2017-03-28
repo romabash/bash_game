@@ -32,7 +32,7 @@ until (($bulls >= $level)); do
   tput cup 4 10 #put "cursor" at given location
   echo -e "$message${Reset}" #Echo the combined arguments 
   echo -e "\n"
-  echo ${number[*]}
+  #echo ${number[*]}
   cat -n playlog #Can also use: nl  playlog
 
   read -p "Enter your guess " input
