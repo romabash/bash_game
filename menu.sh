@@ -18,7 +18,7 @@ display
 
 #Using the Select 
 menu="Play Instructions Scores Quit"
-game_menu="Sign Play"
+game_menu="Login Play"
 PS3='Select option: '
  
 select choice in $menu; do
