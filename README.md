@@ -4,5 +4,5 @@
 ### Written in Bash 4
 ### To start the game run:
 
-> bash manu.sh
+> bash menu.sh
 
