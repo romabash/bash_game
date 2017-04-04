@@ -32,7 +32,8 @@ until (($bulls >= $level)); do
   tput cup 4 10 #put "cursor" at given location
   echo -e "$message${Reset}" #Echo the combined arguments 
   echo -e "\n"
-  #echo ${number[*]}
+#Uncomment to display the number
+  echo ${number[*]}
   cat -n playlog #Can also use: nl  playlog
 
   read -p "Enter your guess " input
@@ -114,16 +115,21 @@ fi
 
 #Saving High score:
 if [[ $# > 0 && $bulls == 4 ]]; then
-  name=$1
+  name=$(echo $1 | awk '{print toupper($0)}')
   if grep -i -q $name score; then #if Name with High score exists
     best_time=$(grep -i $name score | awk '{print $2}')
-  
-    if (($total_time < $best_time)); then #check if current time is less than previous best time
+    best_turn=$(grep -i $name score | awk '{print $3}')
+
+    #check if solved in fewer turns and if current time is less than previous best time
+    if (($count < $best_turn));then
       sed -i "/$name/d" score
-      echo "$name $total_time" >> score #delete old score and append new high score
+      echo "$name $total_time $count" >> score #delete old score and append new high scorei
+    elif (($count == $best_turn && $total_time < $best_time)); then
+      sed -i "/$name/d" score
+      echo "$name $total_time $count" >> score #delete old score and append new high scorei
     fi
-  else
-    echo "$name $total_time" >> score
+      else
+    echo "$name $total_time $count" >> score
   fi
 fi
 
