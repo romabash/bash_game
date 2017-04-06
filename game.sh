@@ -33,7 +33,7 @@ until (($bulls >= $level)); do
   echo -e "$message${Reset}" #Echo the combined arguments 
   echo -e "\n"
 #Uncomment to display the number
-  echo ${number[*]}
+  #echo ${number[*]}
   cat -n playlog #Can also use: nl  playlog
 
   read -p "Enter your guess " input
